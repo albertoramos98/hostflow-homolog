@@ -1,5 +1,7 @@
 import os
 import sys
+from dotenv import load_dotenv ### MUDANÇA 1: Importar dotenv
+
 # DON'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
@@ -17,6 +19,9 @@ from src.routes.accommodation_routes import accommodation_bp
 from src.routes.guest_routes import guest_bp
 from src.routes.booking_routes import booking_bp
 
+### MUDANÇA 2: Carregar variáveis do arquivo .env
+load_dotenv()
+
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 
@@ -31,8 +36,12 @@ app.register_blueprint(accommodation_bp, url_prefix='/api')
 app.register_blueprint(guest_bp, url_prefix='/api')
 app.register_blueprint(booking_bp, url_prefix='/api')
 
-# Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+### MUDANÇA 3: Configurar o banco de dados para usar o Supabase (PostgreSQL)
+database_uri = os.getenv('DATABASE_URL')
+if database_uri and database_uri.startswith("postgres://"):
+    database_uri = database_uri.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -43,43 +52,43 @@ def dashboard_stats():
     try:
         from datetime import datetime, timedelta
         from sqlalchemy import func
-        
+
         # Período do último mês
         last_month = datetime.now() - timedelta(days=30)
-        
+
         # Receita mensal
         monthly_revenue = db.session.query(func.sum(Booking.total_amount)).filter(
             Booking.status.in_(['confirmed', 'checked_out']),
             Booking.created_at >= last_month
         ).scalar() or 0
-        
+
         # Taxa de ocupação (simplificada)
         total_accommodations = Accommodation.query.filter_by(is_active=True).count()
         nights_booked = db.session.query(func.sum(Booking.nights)).filter(
             Booking.status.in_(['confirmed', 'checked_in', 'checked_out']),
             Booking.check_in_date >= last_month.date()
         ).scalar() or 0
-        
+
         total_nights_available = total_accommodations * 30
         occupancy_rate = (nights_booked / total_nights_available * 100) if total_nights_available > 0 else 0
-        
+
         # Hóspedes ativos
         active_guests = Guest.query.filter_by(is_active=True).count()
-        
+
         # Check-ins hoje
         from datetime import date
         today_checkins = Booking.query.filter(
             Booking.check_in_date == date.today(),
             Booking.status.in_(['confirmed', 'checked_in'])
         ).count()
-        
+
         stats = {
             'monthly_revenue': float(monthly_revenue),
             'occupancy_rate': round(occupancy_rate, 1),
             'active_guests': active_guests,
             'today_checkins': today_checkins
         }
-        
+
         return jsonify(stats)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -103,7 +112,7 @@ def serve(path):
 # Create tables and sample data
 with app.app_context():
     db.create_all()
-    
+
     # Create default user if not exists
     if not User.query.first():
         default_user = User(
@@ -114,7 +123,7 @@ with app.app_context():
         db.session.add(default_user)
         db.session.commit()
         print("✅ Default user created")
-    
+
     # Create sample data if tables are empty
     if not Property.query.first():
         try:
@@ -126,4 +135,3 @@ with app.app_context():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
-

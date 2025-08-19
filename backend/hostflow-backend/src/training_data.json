@@ -1,0 +1,170 @@
+{
+  "intent_patterns": {
+    "greeting": [
+      "olá",
+      "oi",
+      "bom dia",
+      "boa tarde",
+      "boa noite",
+      "hey",
+      "e aí"
+    ],
+    "reservas": [
+      "reservas",
+      "booking",
+      "reservar",
+      "agendar",
+      "disponibilidade"
+    ],
+    "propriedades": [
+      "propriedades",
+      "imóveis",
+      "casas",
+      "apartamentos",
+      "acomodações"
+    ],
+    "ajuda": [
+      "ajuda",
+      "suporte",
+      "help",
+      "socorro",
+      "não sei",
+      "como"
+    ],
+    "precos": [
+      "preço",
+      "custo",
+      "valores",
+      "planos",
+      "quanto custa"
+    ],
+    "funcionalidades": [
+      "funcionalidades",
+      "recursos",
+      "o que faz",
+      "características"
+    ],
+    "login": [
+      "login",
+      "acessar",
+      "entrar",
+      "fazer login",
+      "conectar"
+    ],
+    "cadastro": [
+      "cadastro",
+      "registrar",
+      "criar conta",
+      "sign up",
+      "registro"
+    ],
+    "obrigado": [
+      "obrigado",
+      "obrigada",
+      "valeu",
+      "thanks",
+      "muito obrigado"
+    ]
+  },
+  "response_templates": {
+    "greeting": [
+      "Olá! Eu sou o HostFlow Assistant. Como posso ajudar você hoje?",
+      "Oi! Bem-vindo ao HostFlow. Em que posso ajudá-lo?",
+      "Olá! Estou aqui para ajudar com suas necessidades de gerenciamento de propriedades."
+    ],
+    "reservas": [
+      "Para gerenciar suas reservas, acesse a seção de Reservas no painel de controle. Lá você pode ver, editar e adicionar novas reservas.",
+      "Posso ajudar com reservas! Você pode visualizar e gerenciar todas as suas reservas através do painel administrativo.",
+      "As reservas podem ser gerenciadas facilmente através da nossa interface. Precisa de ajuda com alguma reserva específica?"
+    ],
+    "propriedades": [
+      "Na seção de Propriedades, você pode listar e gerenciar todos os seus imóveis. Adicione fotos, descrições e detalhes importantes.",
+      "Você pode gerenciar suas propriedades através do painel de controle. Adicione, edite ou remova propriedades conforme necessário.",
+      "O HostFlow permite gerenciar múltiplas propriedades de forma eficiente. Que tipo de ajuda você precisa com suas propriedades?"
+    ],
+    "ajuda": [
+      "Estou aqui para ajudar! Posso responder perguntas sobre reservas, propriedades, hóspedes e funcionalidades do sistema.",
+      "Se precisar de ajuda adicional, entre em contato com nosso suporte técnico ou continue conversando comigo.",
+      "Posso ajudar com diversas questões do HostFlow. Sobre o que você gostaria de saber mais?"
+    ],
+    "precos": [
+      "As informações sobre preços e planos estão disponíveis em nossa página de Planos e Preços.",
+      "Oferecemos diferentes planos para atender suas necessidades. Gostaria de saber mais sobre algum plano específico?",
+      "Os preços variam conforme o plano escolhido. Posso ajudar a encontrar o melhor plano para você."
+    ],
+    "funcionalidades": [
+      "O HostFlow oferece gerenciamento de reservas, propriedades, comunicação com hóspedes, relatórios e muito mais!",
+      "Nossas principais funcionalidades incluem: gestão de propriedades, controle de reservas, comunicação automatizada e relatórios detalhados.",
+      "O sistema oferece uma solução completa para gerenciamento de propriedades de aluguel temporário."
+    ],
+    "login": [
+      "Para fazer login, clique no botão Login no canto superior direito da tela e insira suas credenciais.",
+      "Você pode acessar sua conta através do botão de login na página principal.",
+      "Para entrar no sistema, use suas credenciais de acesso na tela de login."
+    ],
+    "cadastro": [
+      "Para se cadastrar, clique no botão Registrar e preencha o formulário com suas informações.",
+      "O cadastro é rápido e fácil! Clique em Registrar e siga as instruções.",
+      "Você pode criar sua conta gratuitamente através do formulário de registro."
+    ],
+    "obrigado": [
+      "De nada! Fico feliz em ajudar. Se tiver mais alguma dúvida, é só perguntar.",
+      "Por nada! Estou sempre aqui para ajudar.",
+      "Foi um prazer ajudar! Volte sempre que precisar."
+    ]
+  },
+  "word_frequency": {
+    "olá": 1,
+    "bom": 1,
+    "dia": 1,
+    "boa": 2,
+    "tarde": 1,
+    "noite": 1,
+    "hey": 1,
+    "reservas": 1,
+    "booking": 1,
+    "reservar": 1,
+    "agendar": 1,
+    "disponibilidade": 1,
+    "propriedades": 1,
+    "imóveis": 1,
+    "casas": 1,
+    "apartamentos": 1,
+    "acomodações": 1,
+    "ajuda": 1,
+    "suporte": 1,
+    "help": 1,
+    "socorro": 1,
+    "não": 1,
+    "sei": 1,
+    "como": 1,
+    "preço": 1,
+    "custo": 1,
+    "valores": 1,
+    "planos": 1,
+    "quanto": 1,
+    "custa": 1,
+    "funcionalidades": 1,
+    "recursos": 1,
+    "que": 1,
+    "faz": 1,
+    "características": 1,
+    "login": 2,
+    "acessar": 1,
+    "entrar": 1,
+    "fazer": 1,
+    "conectar": 1,
+    "cadastro": 1,
+    "registrar": 1,
+    "criar": 1,
+    "conta": 1,
+    "sign": 1,
+    "registro": 1,
+    "obrigado": 2,
+    "obrigada": 1,
+    "valeu": 1,
+    "thanks": 1,
+    "muito": 1
+  },
+  "last_updated": "2025-08-18T15:35:47.956226"
+}
