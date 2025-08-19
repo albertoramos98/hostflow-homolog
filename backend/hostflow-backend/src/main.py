@@ -1,8 +1,9 @@
 import os
 import sys
-from dotenv import load_dotenv ### MUDANÇA 1: Importar dotenv
+from dotenv import load_dotenv
 
 # DON'T CHANGE THIS !!!
+# This line is for local development structure, it's safe to keep it.
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory, jsonify
@@ -19,13 +20,13 @@ from src.routes.accommodation_routes import accommodation_bp
 from src.routes.guest_routes import guest_bp
 from src.routes.booking_routes import booking_bp
 
-### MUDANÇA 2: Carregar variáveis do arquivo .env
+# Load environment variables from .env file for local development
 load_dotenv()
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
-app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'asdf#FGSgvasgf$5$WGT') # Good practice to use env var for secret key too
 
-# Habilitar CORS para todas as rotas
+# Enable CORS for all routes
 CORS(app)
 
 # Register blueprints
@@ -36,9 +37,16 @@ app.register_blueprint(accommodation_bp, url_prefix='/api')
 app.register_blueprint(guest_bp, url_prefix='/api')
 app.register_blueprint(booking_bp, url_prefix='/api')
 
-### MUDANÇA 3: Configurar o banco de dados para usar o Supabase (PostgreSQL)
+### MUDANÇA 3: Configuração do Banco de Dados (Mais Robusta) ###
 database_uri = os.getenv('DATABASE_URL')
-if database_uri and database_uri.startswith("postgres://"):
+
+# CRITICAL CHECK: Ensure the DATABASE_URL is provided.
+if not database_uri:
+    # This will print an error in the Render logs and stop the app gracefully.
+    raise ValueError("No DATABASE_URL set for the application. Please set the environment variable.")
+
+# SQLAlchemy prefers 'postgresql://' over 'postgres://'
+if database_uri.startswith("postgres://"):
     database_uri = database_uri.replace("postgres://", "postgresql://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
@@ -109,7 +117,7 @@ def serve(path):
         else:
             return "index.html not found", 404
 
-# Create tables and sample data
+# Create tables and sample data within the app context
 with app.app_context():
     db.create_all()
 
@@ -132,6 +140,7 @@ with app.app_context():
         except Exception as e:
             print(f"⚠️  Error creating sample data: {e}")
 
+# This part is for local development and will be ignored by Gunicorn on Render
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
