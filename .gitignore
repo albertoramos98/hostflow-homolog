@@ -1,0 +1,17 @@
+# Ambientes virtuais
+venv/
+.venv/
+
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de ambiente (segurança)
+.env
+*.env
+
+# Pastas de IDEs e editores
+.vscode/
+.idea/
